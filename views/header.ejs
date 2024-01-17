@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>웹 포트폴리오 제작</h1>
+
+    <header>
+      <nav>
+        <a href="/">Home</a> | <a href="/board">Bulletin board</a> |
+        <a href="/testCalendar">Calendar</a> | <% if (user_id) { %> Welcome! <%=
+        user_name %> <a href="/logout">Logout</a>
+        <% } else { %>
+        <a href="/login">login</a>
+        <% } %>
+      </nav>
+    </header>
+  </body>
+</html>

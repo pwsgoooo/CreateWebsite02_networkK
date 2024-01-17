@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/calendar.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/d7d4cb6163.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>PeachCalendar</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__logo">
+        <img src="/peach.png" />
+        <i class="fa-regular fa-calendar-check"></i>
+      </div>
+      <div class="header__name">PeachCalendar</div>
+      <div class="header__clock"></div>
+    </header>
+
+    <section class="calendar">
+      <div class="calendar__head">
+        <div class="calendar__head__date">
+          <%= currentYear %>. <%= currentMonthAbbreviation %>
+        </div>
+        <div class="calendar__head__move">
+          <form action="/testCalendar/prevMonth" method="post">
+            <input
+              type="hidden"
+              name="currentMonth"
+              value="<%= currentMonth %>"
+            />
+            <input
+              type="hidden"
+              name="currentYear"
+              value="<%= currentYear %>"
+            />
+            <button type="submit">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+          </form>
+          <form action="/testCalendar" method="get">
+            <button
+              type="submit"
+              id="today"
+              class="calendar__head__move__today"
+            >
+              TODAY
+            </button>
+          </form>
+          <form action="/testCalendar/nextMonth" method="post">
+            <input
+              type="hidden"
+              name="currentMonth"
+              value="<%= currentMonth %>"
+            />
+            <input
+              type="hidden"
+              name="currentYear"
+              value="<%= currentYear %>"
+            />
+            <button type="submit">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="calendar__body">
+        <form id="update" action="/testCalendar/selectDate" method="get">
+          <input type="hidden" name="currentYear" value="<%= currentYear %>" />
+          <input
+            type="hidden"
+            name="currentMonth"
+            value="<%= currentMonth %>"
+          />
+          <input
+            type="hidden"
+            name="selectedDate"
+            value="<%= selectedDate %>"
+          />
+          <table id="calendar" border="1" align="center">
+            <thead>
+              <tr>
+                <td class="sun" align="center">Sun</td>
+                <td align="center">Mon</td>
+                <td align="center">Tue</td>
+                <td align="center">Wed</td>
+                <td align="center">Thu</td>
+                <td align="center">Fri</td>
+                <td class="sat" align="center">Sat</td>
+              </tr>
+            </thead>
+            <tbody class="calendar__body__display">
+              <% for (const weekData of calendarData) { %>
+              <tr>
+                <% for (const dayData of weekData) { %>
+
+                <td class="td__date" data-date="<%= dayData.dateString %>">
+                  <%= dayData.dateString %> <% lists.forEach(function (item) {
+                  %> <% if (item.date === dayData.dateString) { %> <%=
+                  item.content%> <% } %> <% }) %>
+                </td>
+
+                <% } %>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </section>
+
+    <aside class="schedule">
+      <div class="schedule__apply__container">
+        <button class="schedule__apply__btn">Add schedule</button>
+      </div>
+      <div class="schedule__content">
+        <div class="schedule__date" data-date="<%= selectedDate %>">
+          <%= selectedFormattedDate %>
+        </div>
+        <div class="schedule__list">
+          <form action="/delete" method="post">
+            <table class="schedule__list__table">
+              <% lists.forEach(function (item) { %> <% if(item.date ===
+              selectedDate) { %>
+
+              <tr class="schedule__underline">
+                <td class="schedule__label__container">
+                  <div class="schedule__label"></div>
+                </td>
+                <td class="schedule__content"><%= item.content %></td>
+                <td>
+                  <button
+                    name="idx"
+                    value="<%= item.idx %>"
+                    class="schedule__bin__btn"
+                    onchange="this.form.submit()"
+                  >
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <% } %> <% }) %>
+            </table>
+          </form>
+        </div>
+      </div>
+    </aside>
+    <footer></footer>
+  </body>
+  <script src="/testCalendar.js"></script>
+</html>
+
+<!--
+var d= new Date(); // 출력형태 Tue Feb 07 2020 23:25:32 GMT+0900 (KST) var
+ISOData = d.toISOString(); // 출력형태 2020-02-06T13:39:45.148Z //var ISODate =
+ISOData.split("T",1); // 출력형태 2020-02-06
+-->

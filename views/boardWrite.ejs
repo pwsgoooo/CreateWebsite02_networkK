@@ -1,0 +1,19 @@
+<%-include('header.ejs')%>
+
+<h1>Bulletin board</h1>
+<form action="/writeProc" method="post">
+  <ul>
+    <li>Write</li>
+    <li>
+      <% if (user_id) { %> <%= user_name %> <% } else { %> "visitor" <% } %>
+    </li>
+    <li>title : <input type="text" name="title" required /></li>
+    <li>
+      content
+      <textarea type="text" name="content" required></textarea>
+    </li>
+    <button>Submit</button>
+  </ul>
+</form>
+
+<%-include('footer.ejs')%>

@@ -1,0 +1,36 @@
+<%-include('header.ejs')%>
+
+<h1>Bulletin board</h1>
+<table>
+  <tr>
+    <th>num</th>
+    <th>title</th>
+    <th>name</th>
+    <th>date</th>
+    <th>ref</th>
+    <th>-</th>
+  </tr>
+  <% lists.forEach(function(item) { %>
+  <tr>
+    <td><%= item.idx %></td>
+    <td><%= item.title %></td>
+    <td><%= item.name %></td>
+    <td><%= item.date %></td>
+    <td><%= item.ref %></td>
+    <td>
+      <% if (user_id) { %>
+      <button>
+        <a
+          href="/boardDelete?idx=<%=item.idx%>"
+          onClick="return confirm('Are you sure you want to delete this?')"
+          >X</a
+        >
+      </button>
+      <% } %>
+    </td>
+  </tr>
+  <% }) %>
+</table>
+<% if (user_id) { %>
+<button><a href="/boardWrite">Write</a></button>
+<% } else { %> "no right for write" <% } %> <%-include('footer.ejs')%>

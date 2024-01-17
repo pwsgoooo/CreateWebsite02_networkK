@@ -1,0 +1,24 @@
+<h1>일정 내용</h1>
+
+<table border="1">
+  <tr>
+    <th>idx</th>
+    <td>date</td>
+    <td>content</td>
+    <td>----</td>
+  </tr>
+  <% lists.forEach(function(item){ %>
+  <tr>
+    <td><%=item.idx%></td>
+    <td><%=item.date%></td>
+    <td><%=item.content%></td>
+    <td>
+      <a
+        href="/todoDelete?idx=<%=item.idx%>"
+        onclick="return confirm('Do you really want to delete?')"
+        >삭제</a
+      >
+    </td>
+  </tr>
+  <% }) %>
+</table>
